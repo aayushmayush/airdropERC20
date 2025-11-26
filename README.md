@@ -1,66 +1,20 @@
-## Foundry
+Merkle Proof Verification: It uses Merkle proofs to efficiently verify if a given address is on the eligibility list without storing the entire list on-chain. This significantly saves gas and storage.
 
-**Foundry is a blazing fast, portable and modular toolkit for Ethereum application development written in Rust.**
+claim Function: Provides the mechanism for eligible users to claim their allotted tokens.
 
-Foundry consists of:
+Gasless Claims (for the recipient): A crucial feature is allowing anyone to call the claim function on behalf of an eligible address. This means the recipient doesn't necessarily have to pay gas for the claim transaction if a third-party (often called a relayer) submits it.
 
-- **Forge**: Ethereum testing framework (like Truffle, Hardhat and DappTools).
-- **Cast**: Swiss army knife for interacting with EVM smart contracts, sending transactions and getting chain data.
-- **Anvil**: Local Ethereum node, akin to Ganache, Hardhat Network.
-- **Chisel**: Fast, utilitarian, and verbose solidity REPL.
+Signature Verification: To ensure that claims are authorized by the rightful owner of the eligible address, even if submitted by a third party, the contract implements digital signature verification. It checks the V, R, and S components of an ECDSA signature. This prevents unauthorized claims or individuals receiving tokens they might not want (e.g., for tax implications or to avoid spam tokens).
 
-## Documentation
 
-https://book.getfoundry.sh/
 
-## Usage
 
-### Build
+GenerateInput.s.sol: Likely used for preparing the data (list of eligible addresses and amounts) that will be used to generate the Merkle tree.
 
-```shell
-$ forge build
-```
+MakeMerkle.s.sol: This script will be responsible for constructing the Merkle tree from the input data, generating the individual Merkle proofs for each eligible address, and computing the Merkle root hash (which will be stored in the MerkleAirdrop.sol contract).
 
-### Test
+DeployMerkleAirdrop.s.sol: A deployment script for the MerkleAirdrop.sol contract.
 
-```shell
-$ forge test
-```
+Interact.s.sol: Used for interacting with the deployed airdrop contract, primarily for making claims.
 
-### Format
-
-```shell
-$ forge fmt
-```
-
-### Gas Snapshots
-
-```shell
-$ forge snapshot
-```
-
-### Anvil
-
-```shell
-$ anvil
-```
-
-### Deploy
-
-```shell
-$ forge script script/Counter.s.sol:CounterScript --rpc-url <your_rpc_url> --private-key <your_private_key>
-```
-
-### Cast
-
-```shell
-$ cast <subcommand>
-```
-
-### Help
-
-```shell
-$ forge --help
-$ anvil --help
-$ cast --help
-```
+SplitSignature.s.sol: A helper script or contract, possibly for dissecting a packed signature into its V, R, and S components for use in the smart contract.
