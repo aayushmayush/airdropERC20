@@ -46,7 +46,7 @@ contract MerkleAirdrop is EIP712 {
             revert MerkleAirdrop_AlreadyClaimed();
         }
 
-        bytes32 digest = getMessage(account, amount);
+        bytes32 digest = getMessageHash(account, amount);
         // Verify the signature
         if (!_isValidSignature(account, digest, v, r, s)) {
             revert MerkleAirdrop_InvalidSignature();
@@ -65,7 +65,7 @@ contract MerkleAirdrop is EIP712 {
         i_airdropToken.safeTransfer(account, amount);
     }
 
-    function getMessage(
+    function getMessageHash(
         address account,
         uint256 amount
     ) public view returns (bytes32) {
