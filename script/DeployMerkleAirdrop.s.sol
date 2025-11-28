@@ -29,3 +29,6 @@ contract DeployMerkleAirdrop is Script {
         return(airdrop,token);
     }
 }
+// 0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512
+// 0x5FbDB2315678afecb367f032d93F642f64180aa3
+// 0xce9ab98883cdced1079145bd6901b14ffaf30fc74b852146e4cf3a54b25bfa21
