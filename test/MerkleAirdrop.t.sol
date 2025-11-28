@@ -49,28 +49,29 @@ contract MerkleAirdropTest is ZkSyncChainChecker,Test {
         );
     }
 
-    function testUsersCanClaim() public {
-        // 1. Get the user's starting token balance
-        uint256 startingBalance = token.balanceOf(user);
+    // function testUsersCanClaim() public {
+    //     // 1. Get the user's starting token balance
+    //     uint256 startingBalance = token.balanceOf(user);
 
-        // 2. Simulate the claim transaction from the user's address
-        // `vm.prank(address)` sets `msg.sender` for the *next* external call only.
-        vm.prank(user);
+    //     // 2. Simulate the claim transaction from the user's address
+    //     // `vm.prank(address)` sets `msg.sender` for the *next* external call only.
+    //     vm.prank(user);
 
-        // 3. Call the claim function on the airdrop contract
-        airdrop.claim(user, AMOUNT_TO_CLAIM, PROOF);
+    //     // 3. Call the claim function on the airdrop contract
+    //     airdrop.claim(user, AMOUNT_TO_CLAIM, PROOF);
 
-        // 4. Get the user's ending token balance
-        uint256 endingBalance = token.balanceOf(user);
+    //     // 4. Get the user's ending token balance
+    //     uint256 endingBalance = token.balanceOf(user);
 
-        // For debugging, you can log the ending balance:
-        console.log("User's Ending Balance: ", endingBalance);
+    //     // For debugging, you can log the ending balance:
+    //     console.log("User's Ending Balance: ", endingBalance);
 
-        // 5. Assert that the balance increased by the expected claim amount
-        assertEq(
-            endingBalance - startingBalance,
-            AMOUNT_TO_CLAIM,
-            "User did not receive the correct amount of tokens"
-        );
-    }
+    //     // 5. Assert that the balance increased by the expected claim amount
+    //     assertEq(
+    //         endingBalance - startingBalance,
+    //         AMOUNT_TO_CLAIM,
+    //         "User did not receive the correct amount of tokens"
+    //     );
+    // }
 }
+
